@@ -1,21 +1,23 @@
-<form>
-    <div class="mb-3">
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+    <div class="mb-4">
         <label for="inputName" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="inputName" />
+        <input type="text" class="form-control" id="inputName" name="name" required ngModel />
     </div>
-    <div class="mb-3">
+    <div class="mb-4">
         <label for="inputEmail" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <input type="email" class="form-control" id="inputEmail" name="email" required
+            ngModel #email="ngModel" />
+        <span class="help-block text-danger" *ngIf="email.invalid && email.touched">Email inválido</span>
     </div>
-    <div class="mb-3">
+    <div class="mb-4">
         <label for="inputPassword" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="inputPassword">
+        <input type="password" class="form-control" id="inputPassword" name="password" required ngModel />
     </div>
-    <div class="mb-3">
-        <label for="inputPasswordConfirmation" class="form-label">Repita a senha</label>
-        <input type="password" class="form-control" id="inputPasswordConfirmation">
+    <div class="mb-4">
+        <label for="inputPasswordConfirmation" class="form-label">Repetir senha</label>
+        <input type="password" class="form-control" id="inputPasswordConfirmation" name="passwordConfirm" required
+            ngModel />
     </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enviar</button>
 </form>

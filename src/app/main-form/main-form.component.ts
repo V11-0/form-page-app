@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.css']
 })
-export class MainFormComponent implements OnInit {
+export class MainFormComponent {
 
-  constructor() { }
+  @ViewChild('f') appForm!: NgForm;
 
-  ngOnInit(): void {
+  onSubmit(): void {
+    console.log(this.appForm);
   }
-
 }
