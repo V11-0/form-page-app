@@ -1,25 +1,38 @@
-<form (ngSubmit)="onSubmit()" #f="ngForm">
+<form [formGroup]="appForm" (ngSubmit)="onSubmit()">
     <div class="mb-4">
         <label for="inputName" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="inputName" name="name" required ngModel #name="ngModel" />
-        <span class="help-block text-danger" *ngIf="name.invalid && name.touched">Nome não pode ser vazio</span>
+        <input type="text" class="form-control" id="inputName" formControlName="name" />
+        <span class="help-block text-danger" *ngIf="appForm.get('name')?.invalid && appForm.get('name')?.touched">Nome
+            não pode ser vazio</span>
     </div>
     <div class="mb-4">
         <label for="inputEmail" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail" name="email" required
-            ngModel #email="ngModel" appEmailValidator />
-        <span class="help-block text-danger" *ngIf="email.invalid && email.touched">Email inválido</span>
+        <input type="email" class="form-control" id="inputEmail" formControlName="email" />
+        <span class="help-block text-danger"
+            *ngIf="appForm.get('email')?.invalid && appForm.get('email')?.touched">Email inválido</span>
     </div>
     <div class="mb-4">
         <label for="inputPassword" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="inputPassword" name="password" required ngModel #password="ngModel" />
-        <span class="help-block text-danger" *ngIf="password.invalid && password.touched">Senha não pode ser vazia</span>
+        <input type="password" class="form-control" id="inputPassword" formControlName="password" />
+        <span class="help-block text-danger"
+            *ngIf="appForm.get('password')?.invalid && appForm.get('password')?.touched">Senha não pode ser vazia</span>
     </div>
     <div class="mb-4">
         <label for="inputPasswordConfirmation" class="form-label">Repetir senha</label>
-        <input type="password" class="form-control" id="inputPasswordConfirmation" name="passwordConfirm" required ngModel #passwordConfirm="ngModel" />
-        <span class="help-block text-danger" *ngIf="passwordConfirm.invalid && passwordConfirm.touched">As senhas devem ser iguais</span>
+        <input type="password" class="form-control" id="inputPasswordConfirmation" formControlName="passwordConfirm" />
+        <span class="help-block text-danger"
+            *ngIf="appForm.errors?.['passwordsNotEqual'] && appForm.get('passwordConfirm')?.touched">As senhas devem ser
+            iguais</span>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Enviar</button>
+    <button type="submit" class="btn btn-primary mb-8" [disabled]="appForm.invalid">Enviar</button>
+
+    <div class="mt-4" *ngIf="registerFinished">
+        <div class="alert alert-success d-flex justify-content-start align-items-center gap" role="alert">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div>Cadastro concluído, redirecionando...</div>
+        </div>
+    </div>
 </form>
